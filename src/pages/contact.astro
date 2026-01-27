@@ -283,21 +283,27 @@ const subjectOptions = [
         method: 'POST',
         body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache',
+        },
+        cache: 'no-store',
       });
 
-      if (response.ok) {
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success) {
         // Success
         successMessage?.classList.remove('hidden');
         form.reset();
         form.classList.add('hidden');
       } else {
-        // Error
+        // Error - log for debugging
+        console.error('Form error:', response.status, data);
         errorMessage?.classList.remove('hidden');
       }
     } catch (error) {
       // Network error
+      console.error('Network error:', error);
       errorMessage?.classList.remove('hidden');
     } finally {
       // Reset button state

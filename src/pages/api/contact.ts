@@ -3,6 +3,12 @@ import { Resend } from 'resend';
 
 export const prerender = false;
 
+// Common headers to prevent caching
+const headers = {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
+};
+
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 // Email address to receive form submissions
@@ -27,7 +33,7 @@ export const POST: APIRoute = async ({ request }) => {
       // Silently accept but don't send (spam bot detected)
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers,
       });
     }
 
@@ -35,7 +41,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (!name || !email || !subject || !message) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers }
       );
     }
 
@@ -82,20 +88,20 @@ ${message}
     if (error) {
       console.error('Resend error:', error);
       return new Response(
-        JSON.stringify({ error: 'Failed to send email' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Failed to send email', details: error.message }),
+        { status: 500, headers }
       );
     }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
     });
   } catch (error) {
     console.error('Contact form error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({ error: 'Internal server error', details: String(error) }),
+      { status: 500, headers }
     );
   }
 };

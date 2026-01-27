@@ -8,6 +8,9 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 // Email address to receive form submissions
 const TO_EMAIL = import.meta.env.CONTACT_EMAIL || 'info@ussportplanes.com';
 
+// Sender email - use verified domain or Resend's default
+const FROM_EMAIL = import.meta.env.FROM_EMAIL || 'US Sport Planes <onboarding@resend.dev>';
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
@@ -49,7 +52,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Send email via Resend
     const { error } = await resend.emails.send({
-      from: 'US Sport Planes <noreply@ussportplanes.com>',
+      from: FROM_EMAIL,
       to: TO_EMAIL,
       replyTo: email,
       subject: `[Website] ${subjectLabel} from ${name}`,

@@ -1,0 +1,102 @@
+---
+import IconFacebook from './icons/IconFacebook.astro';
+import IconInstagram from './icons/IconInstagram.astro';
+import IconYoutube from './icons/IconYoutube.astro';
+import IconPhone from './icons/IconPhone.astro';
+import IconEmail from './icons/IconEmail.astro';
+import IconLocation from './icons/IconLocation.astro';
+
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { href: '/aircraft-for-sale', label: 'Aircraft' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const socialLinks = [
+  { href: 'https://facebook.com', label: 'Facebook', icon: IconFacebook },
+  { href: 'https://instagram.com', label: 'Instagram', icon: IconInstagram },
+  { href: 'https://youtube.com', label: 'YouTube', icon: IconYoutube },
+];
+---
+
+<footer class="bg-primary-950 text-white">
+  <div class="container-custom py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <a href="/" class="text-2xl font-bold">US Sport Planes</a>
+        <p class="mt-4 text-white/70 text-sm">
+          Your trusted partner for sport aircraft sales and services. Experience the freedom of flight.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Navigation</h4>
+        <ul class="space-y-2">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-white/70 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Contact</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href="tel:+1234567890" class="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+              <IconPhone class="w-5 h-5" />
+              <span>(123) 456-7890</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@ussportplanes.com" class="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+              <IconEmail class="w-5 h-5" />
+              <span>info@ussportplanes.com</span>
+            </a>
+          </li>
+          <li>
+            <div class="flex items-start gap-3 text-white/70">
+              <IconLocation class="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <span>123 Aviation Way<br />Anytown, USA 12345</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+        <div class="flex items-center gap-4">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/70 hover:text-white transition-colors"
+              aria-label={link.label}
+            >
+              <link.icon class="w-6 h-6" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-12 pt-8 border-t border-white/10 text-center text-white/50 text-sm">
+      <p>&copy; {currentYear} US Sport Planes. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

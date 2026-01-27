@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import { getAllPosts, getPostBySlug } from '../../data/posts';
+import type { PostCategory } from '../../types/post';
+
+export function getStaticPaths() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = getPostBySlug(slug);
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const categoryLabels: Record<PostCategory, string> = {
+  news: 'News',
+  stories: 'Stories',
+  videos: 'Videos',
+};
+
+const categoryColors: Record<PostCategory, string> = {
+  news: 'bg-blue-500',
+  stories: 'bg-emerald-500',
+  videos: 'bg-purple-500',
+};
+
+const formattedDate = new Date(post.publishDate).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<Layout
+  title={`${post.title} | US Sport Planes Press & Videos`}
+  description={post.excerpt}
+>
+  <Navigation transparent={false} />
+
+  <!-- Breadcrumb -->
+  <section class="pt-24 pb-4 bg-gray-50 border-b border-gray-200">
+    <div class="container-custom">
+      <nav class="flex items-center text-sm text-gray-500">
+        <a href="/" class="hover:text-primary-900 transition-colors">Home</a>
+        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/blog" class="hover:text-primary-900 transition-colors">Press & Videos</a>
+        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-primary-900 font-medium line-clamp-1">{post.title}</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Featured Image -->
+  <section class="bg-gray-50">
+    <div class="container-custom py-8">
+      <div class="relative aspect-[21/9] rounded-xl overflow-hidden shadow-lg">
+        <img
+          src={post.featuredImage.url}
+          alt={post.featuredImage.alt}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Post Content -->
+  <section class="py-8 bg-gray-50">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto">
+        <!-- Post Header -->
+        <div class="mb-8">
+          <!-- Category Badge -->
+          <span class:list={['inline-block px-3 py-1 text-sm font-medium text-white rounded-full mb-4', categoryColors[post.category]]}>
+            {categoryLabels[post.category]}
+          </span>
+
+          <!-- Title -->
+          <h1 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+            {post.title}
+          </h1>
+
+          <!-- Meta -->
+          <div class="flex items-center gap-4 text-gray-500">
+            <span class="font-medium text-gray-700">{post.author}</span>
+            <span>•</span>
+            <span>{formattedDate}</span>
+          </div>
+        </div>
+
+        <!-- Video Embed (if video post) -->
+        {post.contentType === 'video' && post.videoUrl && (
+          <div class="mb-8">
+            <VideoEmbed url={post.videoUrl} title={post.title} />
+          </div>
+        )}
+
+        <!-- Article Content -->
+        <div class="bg-white rounded-xl shadow-md p-8">
+          <div class="prose prose-lg prose-gray max-w-none" set:html={post.content} />
+        </div>
+
+        <!-- Share -->
+        <div class="mt-8 pt-8 border-t border-gray-200">
+          <div class="flex items-center justify-between">
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-2 text-primary-900 hover:text-accent-600 font-medium transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Press & Videos
+            </a>
+
+            <button
+              type="button"
+              id="share-btn"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span id="share-text">Copy Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const shareBtn = document.getElementById('share-btn');
+  const shareText = document.getElementById('share-text');
+
+  shareBtn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (shareText) {
+        shareText.textContent = 'Copied!';
+        setTimeout(() => {
+          shareText.textContent = 'Copy Link';
+        }, 2000);
+      }
+    } catch {
+      // Fallback for older browsers
+      const input = document.createElement('input');
+      input.value = window.location.href;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      if (shareText) {
+        shareText.textContent = 'Copied!';
+        setTimeout(() => {
+          shareText.textContent = 'Copy Link';
+        }, 2000);
+      }
+    }
+  });
+</script>
+
+<style>
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .prose h3 {
+    @apply text-xl font-bold text-primary-900 mt-6 mb-3;
+  }
+
+  .prose p {
+    @apply text-gray-700 mb-4;
+  }
+
+  .prose a {
+    @apply text-accent-600 hover:text-accent-700 underline;
+  }
+</style>

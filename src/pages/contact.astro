@@ -1,0 +1,309 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+import IconPhone from '../components/icons/IconPhone.astro';
+import IconEmail from '../components/icons/IconEmail.astro';
+import IconLocation from '../components/icons/IconLocation.astro';
+
+// Subject options for the dropdown
+const subjectOptions = [
+  { value: '', label: 'Select a subject...' },
+  { value: 'general', label: 'General Inquiry' },
+  { value: 'purchase', label: 'Aircraft Purchase' },
+  { value: 'sale', label: 'Aircraft Sale' },
+  { value: 'training', label: 'Flight Training' },
+  { value: 'service', label: 'Service Request' },
+  { value: 'other', label: 'Other' },
+];
+---
+
+<Layout
+  title="Contact Us | US Sport Planes"
+  description="Get in touch with US Sport Planes. Contact us for aircraft sales, flight training, service requests, or general inquiries."
+>
+  <Navigation transparent={false} />
+
+  <!-- Hero Section -->
+  <section class="bg-primary-900 pt-28 pb-16">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">Contact Us</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          Get in Touch
+        </h1>
+        <p class="text-lg text-white/80 leading-relaxed">
+          Ready to start your aviation journey? We'd love to hear from you.
+          Fill out the form below or reach out directly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form & Info Section -->
+  <Section
+    id="contact-form"
+    background="gray"
+  >
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <h2 class="text-2xl font-bold text-primary-900 mb-6">Send Us a Message</h2>
+
+          <form
+            id="contact-form"
+            action="/api/contact"
+            method="POST"
+            class="space-y-6"
+          >
+            <!-- Honeypot field for spam protection -->
+            <input type="text" name="_gotcha" class="hidden" />
+
+            <!-- Name Field -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                Name <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                placeholder="Your full name"
+              />
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                Email <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <!-- Phone Field (Optional) -->
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                Phone <span class="text-gray-400">(optional)</span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                placeholder="(123) 456-7890"
+              />
+            </div>
+
+            <!-- Subject Dropdown -->
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                Subject <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors bg-white"
+              >
+                {subjectOptions.map((option) => (
+                  <option value={option.value} disabled={option.value === ''} selected={option.value === ''}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Message Field -->
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                Message <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="5"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors resize-none"
+                placeholder="How can we help you?"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full btn-primary text-lg py-4 flex items-center justify-center gap-2"
+            >
+              <span id="btn-text">Send Message</span>
+              <svg id="btn-spinner" class="hidden animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Success Message -->
+          <div id="success-message" class="hidden mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <p class="font-semibold text-green-800">Message sent successfully!</p>
+                <p class="text-green-700 text-sm">We'll get back to you as soon as possible.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div id="error-message" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <div>
+                <p class="font-semibold text-red-800">Something went wrong</p>
+                <p class="text-red-700 text-sm">Please try again or contact us directly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="space-y-8">
+          <div>
+            <h2 class="text-2xl font-bold text-primary-900 mb-6">Contact Information</h2>
+            <p class="text-gray-600 mb-8">
+              Prefer to reach out directly? We're here to help however works best for you.
+            </p>
+          </div>
+
+          <!-- Contact Cards -->
+          <div class="space-y-4">
+            <!-- Phone Card -->
+            <a
+              href="tel:+1234567890"
+              class="flex items-center gap-4 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-500/10 rounded-lg flex items-center justify-center">
+                <IconPhone class="w-6 h-6 text-accent-500" />
+              </div>
+              <div>
+                <p class="font-semibold text-primary-900">Call Us</p>
+                <p class="text-gray-600">(123) 456-7890</p>
+              </div>
+            </a>
+
+            <!-- Email Card -->
+            <a
+              href="mailto:info@ussportplanes.com"
+              class="flex items-center gap-4 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-500/10 rounded-lg flex items-center justify-center">
+                <IconEmail class="w-6 h-6 text-accent-500" />
+              </div>
+              <div>
+                <p class="font-semibold text-primary-900">Email Us</p>
+                <p class="text-gray-600">info@ussportplanes.com</p>
+              </div>
+            </a>
+
+            <!-- Address Card -->
+            <div class="flex items-center gap-4 p-6 bg-white rounded-xl shadow-md">
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-500/10 rounded-lg flex items-center justify-center">
+                <IconLocation class="w-6 h-6 text-accent-500" />
+              </div>
+              <div>
+                <p class="font-semibold text-primary-900">Visit Us</p>
+                <p class="text-gray-600">123 Aviation Way<br />Anytown, USA 12345</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Hours -->
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="font-semibold text-primary-900 mb-4">Business Hours</h3>
+            <div class="space-y-2 text-gray-600">
+              <div class="flex justify-between">
+                <span>Monday - Friday</span>
+                <span>8:00 AM - 6:00 PM</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Saturday</span>
+                <span>9:00 AM - 4:00 PM</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Sunday</span>
+                <span>Closed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide any previous messages
+    successMessage?.classList.add('hidden');
+    errorMessage?.classList.add('hidden');
+
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText?.classList.add('hidden');
+    btnSpinner?.classList.remove('hidden');
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // Success
+        successMessage?.classList.remove('hidden');
+        form.reset();
+        form.classList.add('hidden');
+      } else {
+        // Error
+        errorMessage?.classList.remove('hidden');
+      }
+    } catch (error) {
+      // Network error
+      errorMessage?.classList.remove('hidden');
+    } finally {
+      // Reset button state
+      submitBtn.disabled = false;
+      btnText?.classList.remove('hidden');
+      btnSpinner?.classList.add('hidden');
+    }
+  });
+</script>

@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import AircraftCard from '../../components/AircraftCard.astro';
+import AircraftFilters from '../../components/AircraftFilters.astro';
+import { getAllAircraft } from '../../data/aircraft';
+
+const aircraft = getAllAircraft();
+---
+
+<Layout
+  title="Aircraft Inventory | US Sport Planes"
+  description="Browse our inventory of premium sport aircraft for sale. Light sport, amphibious, experimental, and more."
+>
+  <Navigation transparent={false} />
+
+  <!-- Hero Section - Split Layout -->
+  <section class="bg-primary-900 pt-28 pb-16 lg:pb-20">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text Content -->
+        <div>
+          <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">Our Inventory</p>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Find Your Perfect<br />Aircraft Today.
+          </h1>
+          <p class="text-lg text-white/80 mb-8 leading-relaxed">
+            Discover your next adventure. Browse our selection of premium sport aircraft from world-renowned manufacturers.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#aircraft-grid" class="btn-primary">
+              Browse Inventory
+            </a>
+            <a href="/contact" class="btn-secondary">
+              Contact Us
+            </a>
+          </div>
+        </div>
+        <!-- Image -->
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-primary-800">
+            <img
+              src="/images/hero-aircraft.jpg"
+              alt="Premium sport aircraft"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <!-- Accent decoration -->
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-500/20 rounded-xl -z-10 hidden lg:block"></div>
+          <div class="absolute -top-4 -right-4 w-32 h-32 bg-accent-500/10 rounded-xl -z-10 hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters and Listings -->
+  <section class="py-12 bg-gray-50">
+    <div class="container-custom">
+      <!-- Filters -->
+      <AircraftFilters />
+
+      <!-- Aircraft Grid -->
+      <div id="aircraft-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {aircraft.map((plane) => (
+          <div
+            data-aircraft-card
+            data-status={plane.status}
+            data-type={plane.type}
+            data-manufacturer={plane.manufacturer}
+            data-price={plane.price || 0}
+          >
+            <AircraftCard
+              slug={plane.slug}
+              title={plane.title}
+              shortDescription={plane.shortDescription}
+              image={plane.images[0]?.url || ''}
+              status={plane.status}
+              price={plane.price}
+              type={plane.type}
+              manufacturer={plane.manufacturer}
+              year={plane.year}
+              totalTime={plane.totalTime}
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden text-center py-16">
+        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M12 14h.01M12 16h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">No aircraft found</h3>
+        <p class="text-gray-500 mb-4">Try adjusting your filters to see more results.</p>
+        <button
+          type="button"
+          onclick="document.getElementById('filter-reset')?.click()"
+          class="btn-primary"
+        >
+          Reset Filters
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary-900">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">
+        Don't See What You're Looking For?
+      </h2>
+      <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        We have connections with aircraft owners and dealers worldwide. Tell us what you're looking for and we'll help you find it.
+      </p>
+      <a href="/contact" class="btn-primary text-lg px-8 py-4">
+        Contact Us
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Show empty state when no results
+  const grid = document.getElementById('aircraft-grid');
+  const emptyState = document.getElementById('empty-state');
+  const countSpan = document.getElementById('filter-count');
+
+  if (countSpan && grid && emptyState) {
+    const observer = new MutationObserver(() => {
+      const count = parseInt(countSpan.textContent || '0', 10);
+      if (count === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+      } else {
+        grid.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+      }
+    });
+
+    observer.observe(countSpan, { childList: true, characterData: true, subtree: true });
+  }
+</script>

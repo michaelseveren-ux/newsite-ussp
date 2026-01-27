@@ -1,0 +1,131 @@
+---
+import IconMenu from './icons/IconMenu.astro';
+import IconClose from './icons/IconClose.astro';
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = true } = Astro.props;
+
+const navLinks = [
+  { href: '/about', label: 'About Us' },
+  { href: '/aircraft-for-sale', label: 'Aircraft Inventory' },
+  { href: '/services', label: 'How We Help' },
+  { href: '/blog', label: 'Press & Videos' },
+  { href: '/service-map', label: 'Service & Flight Training' },
+];
+---
+
+<nav
+  id="navbar"
+  data-transparent={transparent}
+  class:list={[
+    'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+    transparent ? 'bg-transparent' : 'bg-primary-900/95 backdrop-blur-sm',
+  ]}
+>
+  <div class="container-custom">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2">
+        <span class="text-2xl font-bold text-white">US Sport Planes</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-white/90 hover:text-white font-medium transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href="/contact" class="btn-primary">
+          Get in Touch
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="md:hidden p-2 text-white"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+      >
+        <IconMenu class="w-6 h-6 block" id="menu-icon" />
+        <IconClose class="w-6 h-6 hidden" id="close-icon" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-primary-900/95 backdrop-blur-sm border-t border-white/10"
+  >
+      <div class="container-custom py-4 space-y-4">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="block text-white/90 hover:text-white font-medium py-2 transition-colors mobile-nav-link"
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href="/contact" class="btn-primary w-full text-center mt-4 mobile-nav-link">
+          Get in Touch
+        </a>
+      </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function toggleMenu() {
+    const isOpen = mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('block');
+    closeIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('block');
+    menuBtn?.setAttribute('aria-expanded', String(!isOpen));
+  }
+
+  menuBtn?.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking a link
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!mobileMenu?.classList.contains('hidden')) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Navbar background on scroll (only when transparent mode is enabled)
+  const navbar = document.getElementById('navbar');
+  const isTransparentMode = navbar?.dataset.transparent === 'true';
+
+  function updateNavbar() {
+    if (!isTransparentMode) return; // Don't modify non-transparent navbars
+
+    if (window.scrollY > 50) {
+      navbar?.classList.remove('bg-transparent');
+      navbar?.classList.add('bg-primary-900/95', 'backdrop-blur-sm');
+    } else {
+      navbar?.classList.add('bg-transparent');
+      navbar?.classList.remove('bg-primary-900/95', 'backdrop-blur-sm');
+    }
+  }
+
+  window.addEventListener('scroll', updateNavbar);
+  updateNavbar();
+</script>

@@ -1,0 +1,111 @@
+---
+import type { AircraftStatus, AircraftType } from '../types/aircraft';
+import StatusBadge from './StatusBadge.astro';
+import PriceDisplay from './PriceDisplay.astro';
+
+interface Props {
+  slug: string;
+  title: string;
+  shortDescription: string;
+  image: string;
+  status: AircraftStatus;
+  price?: number;
+  type: AircraftType;
+  manufacturer?: string;
+  year?: number;
+  totalTime?: number;
+}
+
+const {
+  slug,
+  title,
+  shortDescription,
+  image,
+  status,
+  price,
+  type,
+  manufacturer,
+  year,
+  totalTime,
+} = Astro.props;
+
+const typeLabels: Record<AircraftType, string> = {
+  'light-sport': 'Light Sport',
+  experimental: 'Experimental',
+  ultralight: 'Ultralight',
+  amphibious: 'Amphibious',
+  gyroplane: 'Gyroplane',
+};
+
+const href = `/aircraft-for-sale/${slug}`;
+---
+
+<a
+  href={href}
+  class="group block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+  data-status={status}
+  data-type={type}
+  data-manufacturer={manufacturer}
+  data-price={price || 0}
+>
+  <!-- Image -->
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <img
+      src={image}
+      alt={title}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      loading="lazy"
+    />
+    <!-- Status Badge Overlay -->
+    <div class="absolute top-4 left-4">
+      <StatusBadge status={status} size="sm" />
+    </div>
+    <!-- Type Badge -->
+    <div class="absolute top-4 right-4">
+      <span class="px-2 py-1 text-xs font-medium bg-primary-900/80 text-white rounded-full">
+        {typeLabels[type]}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+    <!-- Title -->
+    <h3 class="text-xl font-bold text-primary-900 mb-2 group-hover:text-accent-600 transition-colors">
+      {title}
+    </h3>
+
+    <!-- Quick Stats -->
+    {(year || totalTime) && (
+      <div class="flex gap-4 text-sm text-gray-500 mb-3">
+        {year && <span>Year: {year}</span>}
+        {totalTime && <span>TT: {totalTime.toLocaleString()} hrs</span>}
+      </div>
+    )}
+
+    <!-- Description -->
+    <p class="text-gray-600 mb-4 line-clamp-2">
+      {shortDescription}
+    </p>
+
+    <!-- Price -->
+    <div class="flex items-center justify-between">
+      <PriceDisplay price={price} size="md" />
+      <span class="text-accent-600 font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+        View Details
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

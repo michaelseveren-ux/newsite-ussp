@@ -1,0 +1,70 @@
+---
+const categories = [
+  { value: 'all', label: 'All' },
+  { value: 'news', label: 'News' },
+  { value: 'stories', label: 'Stories' },
+  { value: 'videos', label: 'Videos' },
+];
+---
+
+<div class="flex flex-wrap gap-2" id="category-filter">
+  {categories.map((cat, index) => (
+    <button
+      type="button"
+      data-category={cat.value}
+      class:list={[
+        'px-4 py-2 rounded-full font-medium transition-colors category-btn',
+        index === 0 ? 'bg-primary-900 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
+      ]}
+    >
+      {cat.label}
+    </button>
+  ))}
+</div>
+
+<script>
+  const filterButtons = document.querySelectorAll('.category-btn');
+  const postCards = document.querySelectorAll('[data-category]');
+  const emptyState = document.getElementById('empty-filter-state');
+  const postsGrid = document.getElementById('posts-grid');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+
+      // Update active button styles
+      filterButtons.forEach((b) => {
+        b.classList.remove('bg-primary-900', 'text-white');
+        b.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+      });
+      btn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+      btn.classList.add('bg-primary-900', 'text-white');
+
+      // Filter posts
+      let visibleCount = 0;
+      postCards.forEach((card) => {
+        // Skip the filter buttons container itself
+        if (card.id === 'category-filter') return;
+
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          (card as HTMLElement).style.display = '';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      // Show/hide empty state
+      if (emptyState && postsGrid) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          postsGrid.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          postsGrid.classList.remove('hidden');
+        }
+      }
+    });
+  });
+</script>

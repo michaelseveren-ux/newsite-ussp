@@ -1,0 +1,210 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+
+// Services offered
+const services = [
+  {
+    id: 'aircraft-sales',
+    title: 'Aircraft Sales',
+    description: 'Find your perfect sport aircraft with our expert guidance. We offer a curated selection of new and pre-owned aircraft, handling everything from initial consultation to final delivery.',
+    features: [
+      'New and pre-owned aircraft inventory',
+      'Expert matching to your flying goals',
+      'Pre-purchase inspections',
+      'Financing assistance',
+    ],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />`,
+  },
+  {
+    id: 'aircraft-acquisition',
+    title: 'Aircraft Acquisition',
+    description: 'Looking for something specific? Our acquisition specialists will search the market to find exactly what you need, negotiating on your behalf to secure the best deal.',
+    features: [
+      'Nationwide aircraft search',
+      'Market analysis and valuation',
+      'Negotiation representation',
+      'Transaction coordination',
+    ],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />`,
+  },
+  {
+    id: 'maintenance',
+    title: 'Maintenance',
+    description: 'Keep your aircraft in peak condition with our comprehensive maintenance services. Our factory-trained technicians ensure your aircraft meets the highest standards of safety and performance.',
+    features: [
+      'Annual inspections',
+      'Scheduled maintenance',
+      'Repairs and troubleshooting',
+      'Factory-authorized service',
+    ],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />`,
+  },
+  {
+    id: 'parts-sales',
+    title: 'Parts Sales',
+    description: 'Access a wide range of OEM and aftermarket parts for your sport aircraft. We stock commonly needed items and can source specialized parts quickly.',
+    features: [
+      'OEM parts supply',
+      'Quality aftermarket options',
+      'Quick sourcing for rare parts',
+      'Competitive pricing',
+    ],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />`,
+  },
+  {
+    id: 'regulatory',
+    title: 'Regulatory Compliance',
+    description: 'Navigate FAA requirements with confidence. We assist with aircraft registration, documentation, and compliance matters to keep you flying legally and safely.',
+    features: [
+      'FAA registration assistance',
+      'Airworthiness documentation',
+      'Import/export paperwork',
+      'Compliance consulting',
+    ],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />`,
+  },
+];
+---
+
+<Layout
+  title="Our Services | US Sport Planes"
+  description="Comprehensive aviation services including aircraft sales, acquisition, maintenance, parts, and regulatory compliance support."
+>
+  <Navigation transparent={false} />
+
+  <!-- Hero Section -->
+  <section class="bg-primary-900 pt-28 pb-16 lg:pb-20">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text Content -->
+        <div>
+          <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">Our Services</p>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Full-Service Aviation<br />Support
+          </h1>
+          <p class="text-lg text-white/80 mb-8 leading-relaxed">
+            From finding your dream aircraft to keeping it in top condition, we provide comprehensive
+            services to support every stage of your aviation journey.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#services-list" class="btn-primary">
+              Explore Services
+            </a>
+            <a href="/contact" class="btn-secondary">
+              Contact Us
+            </a>
+          </div>
+        </div>
+        <!-- Image -->
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-primary-800">
+            <img
+              src="/images/hero-aircraft.jpg"
+              alt="Aircraft maintenance and service"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <!-- Accent decoration -->
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-500/20 rounded-xl -z-10 hidden lg:block"></div>
+          <div class="absolute -top-4 -right-4 w-32 h-32 bg-accent-500/10 rounded-xl -z-10 hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <Section
+    id="services-list"
+    title="What We Offer"
+    subtitle="Comprehensive services to support your aviation needs."
+    background="white"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {services.map((service) => (
+        <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+          <div class="flex-shrink-0 w-14 h-14 bg-accent-500 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <Fragment set:html={service.icon} />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-primary-900 mb-3">{service.title}</h3>
+          <p class="text-gray-600 mb-4">{service.description}</p>
+          {service.features && (
+            <ul class="space-y-2">
+              {service.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Why Choose Us -->
+  <Section
+    id="why-us"
+    title="Why Choose Us"
+    subtitle="What sets US Sport Planes apart."
+    background="gray"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto text-center">
+      <div class="p-6">
+        <div class="w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-primary-900 mb-2">Expert Knowledge</h3>
+        <p class="text-gray-600">Decades of combined experience in sport aviation sales, maintenance, and support.</p>
+      </div>
+      <div class="p-6">
+        <div class="w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-primary-900 mb-2">Personal Service</h3>
+        <p class="text-gray-600">We build lasting relationships with every customer, providing personalized attention throughout.</p>
+      </div>
+      <div class="p-6">
+        <div class="w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-primary-900 mb-2">End-to-End Support</h3>
+        <p class="text-gray-600">From purchase to maintenance to paperwork, we handle it all so you can focus on flying.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section
+    id="contact-cta"
+    title="Ready to Get Started?"
+    subtitle="Whether you need to buy, sell, maintain, or register — we're here to help."
+    background="dark"
+  >
+    <div class="text-center">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/contact" class="btn-primary text-lg px-8 py-4">
+          Get in Touch
+        </a>
+        <a href="/aircraft-for-sale" class="btn-secondary text-lg px-8 py-4">
+          Browse Aircraft
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>

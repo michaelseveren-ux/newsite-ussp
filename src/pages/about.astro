@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+
+// Company Values
+const values = [
+  {
+    title: 'Passion for Aviation',
+    description: 'We live and breathe aviation. Our team shares your enthusiasm for flight and understands what makes sport aircraft special.',
+  },
+  {
+    title: 'Integrity & Trust',
+    description: 'Honest assessments, fair pricing, and transparent dealings. We build relationships that last beyond the sale.',
+  },
+  {
+    title: 'Expert Knowledge',
+    description: 'Decades of combined experience in sport aviation. We know these aircraft inside and out.',
+  },
+  {
+    title: 'Customer First',
+    description: 'Your success is our success. We provide personalized guidance and support every step of the way.',
+  },
+];
+
+// Team Members (placeholder - replace with real team data)
+const team = [
+  {
+    name: 'Team Member Name',
+    role: 'Founder & CEO',
+    bio: 'With over 20 years in sport aviation, leads the team with a passion for connecting pilots with their perfect aircraft.',
+    image: '/images/team/placeholder.jpg',
+  },
+  {
+    name: 'Team Member Name',
+    role: 'Sales Director',
+    bio: 'A certified flight instructor and aviation enthusiast who helps customers find the right aircraft for their needs.',
+    image: '/images/team/placeholder.jpg',
+  },
+  {
+    name: 'Team Member Name',
+    role: 'Service Manager',
+    bio: 'Factory-trained technician ensuring every aircraft meets the highest standards of safety and performance.',
+    image: '/images/team/placeholder.jpg',
+  },
+];
+
+// Timeline/History milestones (placeholder - replace with real history)
+const milestones = [
+  {
+    year: '2010',
+    title: 'Company Founded',
+    description: 'US Sport Planes was established with a mission to make sport aviation accessible to everyone.',
+  },
+  {
+    year: '2015',
+    title: 'Expanded Services',
+    description: 'Added flight training and maintenance services to provide complete support for our customers.',
+  },
+  {
+    year: '2020',
+    title: 'New Partnerships',
+    description: 'Became authorized dealers for leading sport aircraft manufacturers.',
+  },
+  {
+    year: 'Today',
+    title: 'Growing Community',
+    description: 'Serving hundreds of pilots across the country with sales, training, and service.',
+  },
+];
+---
+
+<Layout
+  title="About Us | US Sport Planes"
+  description="Learn about US Sport Planes - our story, our team, and our commitment to helping you experience the freedom of flight."
+>
+  <Navigation transparent={false} />
+
+  <!-- Compact Hero - Split Layout -->
+  <section class="bg-primary-900 pt-28 pb-16 lg:pb-20">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text Content -->
+        <div>
+          <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">About Us</p>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Passionate Aviators.<br />Trusted Partners.
+          </h1>
+          <p class="text-lg text-white/80 mb-8 leading-relaxed">
+            We're more than a dealership — we're fellow pilots who understand the dream of flight.
+            From first-time buyers to seasoned aviators, we're here to guide your journey.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#team" class="btn-primary">
+              Meet the Team
+            </a>
+            <a href="/aircraft-for-sale" class="btn-secondary">
+              View Aircraft
+            </a>
+          </div>
+        </div>
+        <!-- Image -->
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-primary-800">
+            <img
+              src="/images/hero-aircraft.jpg"
+              alt="US Sport Planes team and aircraft"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <!-- Accent decoration -->
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-500/20 rounded-xl -z-10 hidden lg:block"></div>
+          <div class="absolute -top-4 -right-4 w-32 h-32 bg-accent-500/10 rounded-xl -z-10 hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Story Section -->
+  <Section
+    id="story"
+    title="Who We Are"
+    subtitle="More than a dealership - we're fellow aviators who share your passion for flight."
+    background="white"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="prose prose-lg mx-auto text-gray-700">
+        <p class="text-xl leading-relaxed mb-6">
+          US Sport Planes was born from a simple belief: everyone deserves the opportunity to experience
+          the freedom of flight. What started as a passion project has grown into a full-service
+          aviation company, but our mission remains the same.
+        </p>
+        <p class="text-lg leading-relaxed mb-6">
+          We specialize in sport aircraft because we believe they represent the purest form of flying -
+          accessible, affordable, and absolutely exhilarating. Whether you're dreaming of your first
+          aircraft or adding to your hangar, we're here to help you find the perfect match.
+        </p>
+        <p class="text-lg leading-relaxed">
+          Our team brings together decades of experience in aviation sales, flight instruction, and
+          aircraft maintenance. We don't just sell aircraft - we build relationships with pilots and
+          support them throughout their aviation journey.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Mission & Values Section -->
+  <Section
+    id="values"
+    title="Our Values"
+    subtitle="The principles that guide everything we do."
+    background="gray"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {values.map((value) => (
+        <div class="bg-white p-8 rounded-xl shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-primary-900 mb-2">{value.title}</h3>
+              <p class="text-gray-600">{value.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Company History/Timeline Section -->
+  <Section
+    id="history"
+    title="Our Journey"
+    subtitle="Key milestones in our story."
+    background="white"
+  >
+    <div class="max-w-3xl mx-auto">
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-accent-500/30 hidden md:block"></div>
+
+        <div class="space-y-8">
+          {milestones.map((milestone, index) => (
+            <div class="relative flex gap-6 md:gap-8">
+              <!-- Year badge -->
+              <div class="flex-shrink-0 w-16 h-16 bg-accent-500 rounded-full flex items-center justify-center z-10">
+                <span class="text-white font-bold text-sm">{milestone.year}</span>
+              </div>
+              <!-- Content -->
+              <div class="flex-grow pb-8">
+                <h3 class="text-xl font-bold text-primary-900 mb-2">{milestone.title}</h3>
+                <p class="text-gray-600">{milestone.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Team Section -->
+  <Section
+    id="team"
+    title="Meet Our Team"
+    subtitle="The passionate aviators behind US Sport Planes."
+    background="gray"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {team.map((member) => (
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <!-- Photo placeholder -->
+          <div class="aspect-square bg-gray-200 flex items-center justify-center">
+            <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary-900 mb-1">{member.name}</h3>
+            <p class="text-accent-500 font-medium mb-3">{member.role}</p>
+            <p class="text-gray-600 text-sm">{member.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section
+    id="contact"
+    title="Ready to Start Your Journey?"
+    subtitle="Whether you're buying your first aircraft or your next, we're here to help."
+    background="dark"
+  >
+    <div class="text-center">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/contact" class="btn-primary text-lg px-8 py-4">
+          Get in Touch
+        </a>
+        <a href="/aircraft-for-sale" class="btn-secondary text-lg px-8 py-4">
+          Browse Aircraft
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>

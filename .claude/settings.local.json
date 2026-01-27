@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(uv:*)",
+      "Bash(curl:*)",
+      "Bash(sh)",
+      "Bash(source:*)",
+      "Bash(export PATH=\"$HOME/.local/bin:$PATH\")",
+      "Bash(uvx:*)",
+      "WebFetch(domain:oraios.github.io)",
+      "Bash(claude mcp add:*)",
+      "Bash(npm install:*)",
+      "Bash(npx openspec init)",
+      "Bash(npx openspec:*)",
+      "Bash(openspec status:*)",
+      "mcp__serena__list_dir",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(npm run dev:*)",
+      "Bash(openspec list:*)",
+      "Bash(npm run build:*)",
+      "Bash(openspec new:*)"
+    ]
+  }
+}

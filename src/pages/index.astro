@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import AircraftCard from '../components/AircraftCard.astro';
+import Footer from '../components/Footer.astro';
+import IconPhone from '../components/icons/IconPhone.astro';
+import IconEmail from '../components/icons/IconEmail.astro';
+import IconLocation from '../components/icons/IconLocation.astro';
+import { getFeaturedAircraft } from '../data/aircraft';
+
+// Get featured aircraft from mock data
+const featuredAircraft = getFeaturedAircraft();
+
+// Services Data
+const services = [
+  {
+    title: 'Aircraft Sales',
+    description: 'New and pre-owned sport aircraft from leading manufacturers. Find your perfect aircraft with expert guidance.',
+  },
+  {
+    title: 'Flight Training',
+    description: 'Sport pilot certification programs for aspiring aviators. Learn to fly with experienced instructors.',
+  },
+  {
+    title: 'Maintenance & Service',
+    description: 'Factory-authorized service center with certified technicians. Keep your aircraft in peak condition.',
+  },
+  {
+    title: 'Parts & Accessories',
+    description: 'Genuine parts, avionics upgrades, and accessories. Everything you need for your aircraft.',
+  },
+];
+
+// Value Propositions
+const values = [
+  { title: 'Expert Knowledge', description: 'Decades of combined experience in sport aviation' },
+  { title: 'Customer First', description: 'Personalized service tailored to your needs' },
+  { title: 'Quality Aircraft', description: 'Only the finest aircraft from trusted manufacturers' },
+  { title: 'Ongoing Support', description: 'We\'re with you long after the purchase' },
+];
+---
+
+<Layout title="US Sport Planes | Your Adventure Starts Here" description="Premier sport aircraft sales, flight training, and maintenance services. Discover the freedom of flight with US Sport Planes.">
+  <Navigation />
+
+  <Hero
+    headline="Your Adventure Starts Here"
+    tagline="Discover the freedom of flight with premium sport aircraft. Sales, training, and service from passionate aviators."
+    primaryCta={{ text: 'View Aircraft', href: '#aircraft' }}
+    secondaryCta={{ text: 'Contact Us', href: '/contact' }}
+    backgroundImage="/images/hero-aircraft.jpg"
+  />
+
+  <!-- Featured Aircraft Section -->
+  <Section
+    id="aircraft"
+    title="Featured Aircraft"
+    subtitle="Explore our selection of premium sport aircraft from world-renowned manufacturers."
+    background="white"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {featuredAircraft.map((plane) => (
+        <AircraftCard
+          slug={plane.slug}
+          title={plane.title}
+          shortDescription={plane.shortDescription}
+          image={plane.image}
+          status={plane.status}
+          price={plane.price}
+          type={plane.type}
+        />
+      ))}
+    </div>
+    <div class="text-center mt-12">
+      <a href="/aircraft-for-sale" class="btn-primary text-lg px-8 py-4">
+        View All Aircraft
+      </a>
+    </div>
+  </Section>
+
+  <!-- About Section -->
+  <Section
+    id="about"
+    title="Why Choose Us"
+    subtitle="We're passionate aviators dedicated to helping you achieve your dream of flight."
+    background="gray"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-lg text-gray-700 mb-6">
+          At US Sport Planes, we believe everyone deserves to experience the freedom of flight.
+          With years of experience in sport aviation, we've helped hundreds of pilots find their
+          perfect aircraft and take to the skies.
+        </p>
+        <p class="text-lg text-gray-700 mb-8">
+          Whether you're a first-time buyer or an experienced pilot looking for your next adventure,
+          our team provides personalized guidance every step of the way.
+        </p>
+        <a href="/contact" class="btn-outline">
+          Learn More About Us
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        {values.map((value) => (
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h4 class="font-bold text-primary-900 mb-2">{value.title}</h4>
+            <p class="text-gray-600 text-sm">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Services Section -->
+  <Section
+    id="services"
+    title="Our Services"
+    subtitle="Comprehensive aviation services to support your journey from dream to flight."
+    background="white"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {services.map((service) => (
+        <div class="flex gap-4 p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-primary-900 mb-2">{service.title}</h3>
+            <p class="text-gray-600">{service.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Contact Section -->
+  <Section
+    id="contact"
+    title="Get in Touch"
+    subtitle="Ready to start your aviation journey? We'd love to hear from you."
+    background="gray"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <a href="tel:+1234567890" class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+          <IconPhone class="w-8 h-8 text-accent-500 mb-3" />
+          <span class="font-semibold text-primary-900">Call Us</span>
+          <span class="text-gray-600">(123) 456-7890</span>
+        </a>
+        <a href="mailto:info@ussportplanes.com" class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+          <IconEmail class="w-8 h-8 text-accent-500 mb-3" />
+          <span class="font-semibold text-primary-900">Email Us</span>
+          <span class="text-gray-600">info@ussportplanes.com</span>
+        </a>
+        <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-md">
+          <IconLocation class="w-8 h-8 text-accent-500 mb-3" />
+          <span class="font-semibold text-primary-900">Visit Us</span>
+          <span class="text-gray-600 text-center">123 Aviation Way<br />Anytown, USA 12345</span>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="mailto:info@ussportplanes.com" class="btn-primary text-lg px-10 py-4">
+          Request a Consultation
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>

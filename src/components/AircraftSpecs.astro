@@ -1,0 +1,102 @@
+---
+import type { AircraftSpecs } from '../types/aircraft';
+
+interface Props {
+  specs: AircraftSpecs;
+  totalTime?: number;
+  engineTime?: number;
+  propTime?: number;
+}
+
+const { specs, totalTime, engineTime, propTime } = Astro.props;
+
+// Group specifications by category
+const specGroups = [
+  {
+    title: 'Performance',
+    items: [
+      { label: 'Cruise Speed', value: specs.cruiseSpeed },
+      { label: 'Max Speed', value: specs.maxSpeed },
+      { label: 'Stall Speed', value: specs.stallSpeed },
+      { label: 'Range', value: specs.range },
+      { label: 'Rate of Climb', value: specs.rateOfClimb },
+      { label: 'Service Ceiling', value: specs.serviceCeiling },
+      { label: 'Takeoff Distance', value: specs.takeoffDistance },
+      { label: 'Landing Distance', value: specs.landingDistance },
+    ].filter((item) => item.value),
+  },
+  {
+    title: 'Fuel',
+    items: [
+      { label: 'Fuel Capacity', value: specs.fuelCapacity },
+      { label: 'Fuel Burn', value: specs.fuelBurn },
+    ].filter((item) => item.value),
+  },
+  {
+    title: 'Dimensions',
+    items: [
+      { label: 'Wingspan', value: specs.wingspan },
+      { label: 'Length', value: specs.length },
+      { label: 'Height', value: specs.height },
+      { label: 'Wing Area', value: specs.wingArea },
+    ].filter((item) => item.value),
+  },
+  {
+    title: 'Weights',
+    items: [
+      { label: 'Empty Weight', value: specs.emptyWeight },
+      { label: 'Max Gross Weight', value: specs.maxGrossWeight },
+      { label: 'Useful Load', value: specs.usefulLoad },
+    ].filter((item) => item.value),
+  },
+  {
+    title: 'Powerplant',
+    items: [
+      { label: 'Engine', value: specs.engine },
+      { label: 'Horsepower', value: specs.horsepower },
+      { label: 'Propeller', value: specs.propeller },
+    ].filter((item) => item.value),
+  },
+  {
+    title: 'Times',
+    items: [
+      { label: 'Total Time', value: totalTime ? `${totalTime.toLocaleString()} hrs` : undefined },
+      { label: 'Engine Time', value: engineTime ? `${engineTime.toLocaleString()} hrs` : undefined },
+      { label: 'Prop Time', value: propTime ? `${propTime.toLocaleString()} hrs` : undefined },
+    ].filter((item) => item.value),
+  },
+].filter((group) => group.items.length > 0);
+
+const avionicsSpec = specs.avionics;
+---
+
+<div class="space-y-8">
+  <!-- Spec Groups Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {specGroups.map((group) => (
+      <div class="bg-gray-50 rounded-xl p-6">
+        <h4 class="text-lg font-bold text-primary-900 mb-4 pb-2 border-b border-gray-200">
+          {group.title}
+        </h4>
+        <dl class="space-y-3">
+          {group.items.map((item) => (
+            <div class="flex justify-between">
+              <dt class="text-gray-600">{item.label}</dt>
+              <dd class="font-medium text-primary-900">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    ))}
+  </div>
+
+  <!-- Avionics (full width if present) -->
+  {avionicsSpec && (
+    <div class="bg-gray-50 rounded-xl p-6">
+      <h4 class="text-lg font-bold text-primary-900 mb-4 pb-2 border-b border-gray-200">
+        Avionics
+      </h4>
+      <p class="text-gray-700">{avionicsSpec}</p>
+    </div>
+  )}
+</div>

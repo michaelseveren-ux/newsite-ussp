@@ -1,0 +1,42 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  subtitle?: string;
+  background?: 'white' | 'gray' | 'dark';
+}
+
+const { id, title, subtitle, background = 'white' } = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  dark: 'bg-primary-900 text-white',
+};
+
+const titleClasses = {
+  white: 'text-primary-900',
+  gray: 'text-primary-900',
+  dark: 'text-white',
+};
+
+const subtitleClasses = {
+  white: 'text-gray-600',
+  gray: 'text-gray-600',
+  dark: 'text-white/80',
+};
+---
+
+<section id={id} class:list={['section', bgClasses[background]]}>
+  <div class="container-custom">
+    <h2 class:list={['section-title', titleClasses[background]]}>
+      {title}
+    </h2>
+    {subtitle && (
+      <p class:list={['section-subtitle', subtitleClasses[background]]}>
+        {subtitle}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

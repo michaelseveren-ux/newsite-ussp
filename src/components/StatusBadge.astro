@@ -1,0 +1,50 @@
+---
+import type { AircraftStatus } from '../types/aircraft';
+
+interface Props {
+  status: AircraftStatus;
+  size?: 'sm' | 'md';
+}
+
+const { status, size = 'md' } = Astro.props;
+
+const statusConfig = {
+  available: {
+    label: 'Available',
+    bgColor: 'bg-green-100',
+    textColor: 'text-green-800',
+    dotColor: 'bg-green-500',
+  },
+  pending: {
+    label: 'Sale Pending',
+    bgColor: 'bg-yellow-100',
+    textColor: 'text-yellow-800',
+    dotColor: 'bg-yellow-500',
+  },
+  sold: {
+    label: 'Sold',
+    bgColor: 'bg-gray-100',
+    textColor: 'text-gray-600',
+    dotColor: 'bg-gray-400',
+  },
+};
+
+const config = statusConfig[status];
+
+const sizeClasses = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-3 py-1 text-sm',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center gap-1.5 font-medium rounded-full',
+    config.bgColor,
+    config.textColor,
+    sizeClasses[size],
+  ]}
+>
+  <span class:list={['w-2 h-2 rounded-full', config.dotColor]}></span>
+  {config.label}
+</span>

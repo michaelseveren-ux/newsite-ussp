@@ -1,0 +1,39 @@
+---
+interface Props {
+  price?: number;
+  size?: 'sm' | 'md' | 'lg';
+  showLabel?: boolean;
+}
+
+const { price, size = 'md', showLabel = false } = Astro.props;
+
+const formattedPrice = price
+  ? new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  : null;
+
+const sizeClasses = {
+  sm: 'text-base',
+  md: 'text-xl',
+  lg: 'text-2xl md:text-3xl',
+};
+---
+
+<div class="flex flex-col">
+  {showLabel && <span class="text-sm text-gray-500 mb-1">Price</span>}
+  {
+    formattedPrice ? (
+      <span class:list={['font-bold text-primary-900', sizeClasses[size]]}>
+        {formattedPrice}
+      </span>
+    ) : (
+      <span class:list={['font-semibold text-gray-600 italic', sizeClasses[size]]}>
+        Price on Request
+      </span>
+    )
+  }
+</div>

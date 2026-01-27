@@ -1,0 +1,74 @@
+---
+interface Props {
+  headline: string;
+  tagline: string;
+  primaryCta?: {
+    text: string;
+    href: string;
+  };
+  secondaryCta?: {
+    text: string;
+    href: string;
+  };
+  backgroundImage?: string;
+}
+
+const {
+  headline,
+  tagline,
+  primaryCta,
+  secondaryCta,
+  backgroundImage = '/images/hero-aircraft.jpg',
+} = Astro.props;
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Image -->
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={`background-image: url('${backgroundImage}');`}
+  >
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-900/80 via-primary-900/60 to-primary-900/40"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container-custom text-center px-4 pt-20">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+      {headline}
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-10">
+      {tagline}
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      {primaryCta && (
+        <a href={primaryCta.href} class="btn-primary text-lg px-8 py-4">
+          {primaryCta.text}
+        </a>
+      )}
+      {secondaryCta && (
+        <a href={secondaryCta.href} class="btn-secondary text-lg px-8 py-4">
+          {secondaryCta.text}
+        </a>
+      )}
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <svg
+      class="w-6 h-6 text-white/70"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+      />
+    </svg>
+  </div>
+</section>

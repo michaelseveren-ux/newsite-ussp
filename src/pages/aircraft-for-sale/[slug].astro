@@ -171,7 +171,7 @@ const typeLabels: Record<AircraftType, string> = {
             <!-- CTA Buttons -->
             <div class="space-y-3">
               <a
-                href="/contact"
+                href={`/contact?aircraft=${encodeURIComponent(aircraft.title)}`}
                 class="btn-primary w-full text-center"
               >
                 Inquire About This Aircraft

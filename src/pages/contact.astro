@@ -265,6 +265,24 @@ const subjectOptions = [
   const successMessage = document.getElementById('success-message');
   const errorMessage = document.getElementById('error-message');
 
+  // Pre-fill form when coming from aircraft inquiry
+  const urlParams = new URLSearchParams(window.location.search);
+  const aircraftParam = urlParams.get('aircraft');
+
+  if (aircraftParam) {
+    // Pre-fill message with aircraft inquiry template
+    const messageField = document.getElementById('message') as HTMLTextAreaElement;
+    if (messageField) {
+      messageField.value = `I am interested in the ${aircraftParam}. Please contact me with more information.`;
+    }
+
+    // Auto-select "Aircraft Purchase" subject
+    const subjectField = document.getElementById('subject') as HTMLSelectElement;
+    if (subjectField) {
+      subjectField.value = 'purchase';
+    }
+  }
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
 

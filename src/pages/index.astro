@@ -53,12 +53,36 @@ const values = [
     backgroundImage="/images/hero-aircraft.jpg"
   />
 
+  <!-- Services Section -->
+  <Section
+    id="services"
+    title="Our Services"
+    subtitle="Comprehensive aviation services to support your journey from dream to flight."
+    background="white"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {services.map((service) => (
+        <div class="flex gap-4 p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-primary-900 mb-2">{service.title}</h3>
+            <p class="text-gray-600">{service.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
   <!-- Featured Aircraft Section -->
   <Section
     id="aircraft"
     title="Featured Aircraft"
     subtitle="Explore our selection of premium sport aircraft from world-renowned manufacturers."
-    background="white"
+    background="gray"
   >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {featuredAircraft.map((plane) => (
@@ -85,7 +109,7 @@ const values = [
     id="about"
     title="Why Choose Us"
     subtitle="We're passionate aviators dedicated to helping you achieve your dream of flight."
-    background="gray"
+    background="white"
   >
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div>
@@ -110,30 +134,6 @@ const values = [
           </div>
         ))}
       </div>
-    </div>
-  </Section>
-
-  <!-- Services Section -->
-  <Section
-    id="services"
-    title="Our Services"
-    subtitle="Comprehensive aviation services to support your journey from dream to flight."
-    background="white"
-  >
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {services.map((service) => (
-        <div class="flex gap-4 p-6 bg-gray-50 rounded-xl">
-          <div class="flex-shrink-0 w-12 h-12 bg-accent-500 rounded-lg flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-primary-900 mb-2">{service.title}</h3>
-            <p class="text-gray-600">{service.description}</p>
-          </div>
-        </div>
-      ))}
     </div>
   </Section>
 

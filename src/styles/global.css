@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply font-body text-gray-900 antialiased;
+    @apply font-body text-primary-900 antialiased bg-paper;
   }
 
   h1, h2, h3, h4, h5, h6 {

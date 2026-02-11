@@ -21,15 +21,19 @@ The navigation SHALL display the US Sport Planes logo on the left side, linking 
 - **THEN** the site logo appears on the left side AND clicking the logo navigates to the homepage
 
 ### Requirement: Navigation displays primary links
-The navigation SHALL display primary navigation links: "Aircraft", "About", "Services", and "Contact".
+The navigation SHALL display primary navigation links: "New Aircraft", "About Us", "Aircraft Inventory", "How We Help", "Press & Videos", and "Service & Flight Training".
 
 #### Scenario: Navigation links are visible on desktop
 - **WHEN** the viewport width is 768px or greater
 - **THEN** all primary navigation links are visible in the navigation bar
 
-#### Scenario: Navigation links scroll to sections
-- **WHEN** a user clicks a navigation link
-- **THEN** the page scrolls smoothly to the corresponding section
+#### Scenario: New Aircraft link navigates to new aircraft page
+- **WHEN** a user clicks the "New Aircraft" navigation link
+- **THEN** the user is navigated to the `/new-aircraft/` page
+
+#### Scenario: Navigation links appear in correct order
+- **WHEN** the navigation bar is displayed
+- **THEN** "New Aircraft" appears as the first navigation link
 
 ### Requirement: Navigation displays call-to-action button
 The navigation SHALL display a prominent CTA button labeled "Get in Touch" or "Request Info" that links to the contact section.

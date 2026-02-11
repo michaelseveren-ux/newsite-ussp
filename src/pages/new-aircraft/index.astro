@@ -1,0 +1,383 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllJabiruModels } from '../../data/jabiru';
+
+const models = getAllJabiruModels();
+
+function formatPrice(price: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+---
+
+<Layout
+  title="New Jabiru Aircraft | US Sport Planes"
+  description="Official Jabiru importer for the Americas. Explore the J170-M, J430-M, and J432-M. View specifications, pricing, and learn how to order your new Jabiru aircraft."
+>
+  <Navigation transparent={false} />
+
+  <!-- Hero Section -->
+  <section class="bg-primary-900 pt-28 pb-16 lg:pb-20">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text Content -->
+        <div>
+          <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">
+            Official Jabiru Importer for the Americas
+          </p>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            New Jabiru<br />Aircraft
+          </h1>
+          <p class="text-lg text-white/80 mb-8 leading-relaxed">
+            Experience Australian engineering excellence. From training aircraft to four-seat tourers,
+            Jabiru delivers proven reliability, exceptional efficiency, and outstanding value.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#models" class="btn-primary">
+              Explore Models
+            </a>
+            <a href="#how-to-order" class="btn-secondary">
+              How to Order
+            </a>
+          </div>
+        </div>
+        <!-- Image -->
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-primary-800">
+            <img
+              src="https://placehold.co/1200x800/1e2a5e/ffffff?text=Jabiru+Aircraft"
+              alt="New Jabiru Aircraft"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-500/20 rounded-xl -z-10 hidden lg:block"></div>
+          <div class="absolute -top-4 -right-4 w-32 h-32 bg-accent-500/10 rounded-xl -z-10 hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models Section -->
+  <section id="models" class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          Available Models
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Choose from our lineup of proven Jabiru aircraft, each designed for specific mission profiles.
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        {models.map((model, index) => (
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+            <!-- Image -->
+            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
+              <div class="aspect-[4/3] rounded-xl overflow-hidden bg-gray-200">
+                <img
+                  src={model.images[0]?.url || 'https://placehold.co/1200x800/1e2a5e/ffffff?text=Jabiru'}
+                  alt={model.images[0]?.alt || model.name}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
+              <h3 class="text-2xl md:text-3xl font-bold text-primary-900 mb-2">
+                Jabiru {model.name}
+              </h3>
+              <p class="text-accent-500 font-semibold mb-4">{model.tagline}</p>
+              <p class="text-gray-600 mb-6">{model.description}</p>
+
+              <!-- Highlights -->
+              <ul class="space-y-2 mb-6">
+                {model.highlights.slice(0, 4).map((highlight) => (
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-gray-700">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <!-- Key Specs -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 p-4 bg-white rounded-lg border border-gray-200">
+                <div class="text-center">
+                  <div class="text-lg font-bold text-primary-900">{model.specs.cruiseSpeed}</div>
+                  <div class="text-xs text-gray-500 uppercase">Cruise</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-primary-900">{model.specs.range}</div>
+                  <div class="text-xs text-gray-500 uppercase">Range</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-primary-900">{model.specs.seating}</div>
+                  <div class="text-xs text-gray-500 uppercase">Seats</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-primary-900">{model.specs.usefulLoad}</div>
+                  <div class="text-xs text-gray-500 uppercase">Useful Load</div>
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="flex items-center justify-between p-4 bg-primary-900 rounded-lg">
+                <div>
+                  <div class="text-2xl font-bold text-white">{formatPrice(model.basePrice)}</div>
+                  <div class="text-sm text-white/70">Base price*</div>
+                </div>
+                <a href="/contact?aircraft=jabiru-{model.slug}" class="btn-primary bg-white text-primary-900 hover:bg-gray-100">
+                  Request Quote
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-sm text-gray-500 mt-8">
+        *Base prices shown. Final price varies based on avionics, options, and delivery location. Contact us for a personalized quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- Full Specifications Section -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          Detailed Specifications
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Compare the full specifications of each Jabiru model.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[600px] text-sm">
+          <thead>
+            <tr class="border-b-2 border-primary-900">
+              <th class="text-left py-3 px-4 font-semibold text-primary-900">Specification</th>
+              {models.map((model) => (
+                <th class="text-center py-3 px-4 font-semibold text-primary-900">{model.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Engine</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.engine}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Horsepower</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.horsepower}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Seating</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.seating}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Cruise Speed</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.cruiseSpeed}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Max Speed</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.maxSpeed}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Stall Speed</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.stallSpeed}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Range</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.range}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Rate of Climb</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.rateOfClimb}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Service Ceiling</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.serviceCeiling}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Fuel Capacity</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.fuelCapacity}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Fuel Burn</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.fuelBurn}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Wingspan</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.wingspan}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Length</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.length}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Empty Weight</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.emptyWeight}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Max Gross Weight</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.maxGrossWeight}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Useful Load</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.usefulLoad}</td>
+              ))}
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="py-3 px-4 font-medium text-gray-700">Takeoff Distance</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.takeoffDistance}</td>
+              ))}
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-medium text-gray-700">Landing Distance</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 text-gray-600">{model.specs.landingDistance}</td>
+              ))}
+            </tr>
+            <tr class="bg-primary-900 text-white">
+              <td class="py-3 px-4 font-semibold">Base Price</td>
+              {models.map((model) => (
+                <td class="text-center py-3 px-4 font-semibold">{formatPrice(model.basePrice)}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Order Section -->
+  <section id="how-to-order" class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          How to Order
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Ordering your new Jabiru aircraft is a straightforward process. Here's what to expect.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+            1
+          </div>
+          <h3 class="text-lg font-semibold text-primary-900 mb-2">Inquiry</h3>
+          <p class="text-gray-600 text-sm">
+            Contact us to discuss your needs and learn more about the Jabiru lineup.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+            2
+          </div>
+          <h3 class="text-lg font-semibold text-primary-900 mb-2">Consultation</h3>
+          <p class="text-gray-600 text-sm">
+            We'll help you select the right model and configuration for your mission.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+            3
+          </div>
+          <h3 class="text-lg font-semibold text-primary-900 mb-2">Configuration</h3>
+          <p class="text-gray-600 text-sm">
+            Choose your avionics, paint scheme, and optional equipment.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+            4
+          </div>
+          <h3 class="text-lg font-semibold text-primary-900 mb-2">Deposit</h3>
+          <p class="text-gray-600 text-sm">
+            Secure your build slot with a deposit and we'll place your order with Jabiru.
+          </p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+            5
+          </div>
+          <h3 class="text-lg font-semibold text-primary-900 mb-2">Delivery</h3>
+          <p class="text-gray-600 text-sm">
+            Receive your aircraft, complete training, and take to the skies!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary-900">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">
+        Ready to Own a Jabiru?
+      </h2>
+      <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        Contact us today to learn more about new Jabiru aircraft, schedule a demo flight, or get a personalized quote.
+      </p>
+      <a href="/contact" class="btn-primary text-lg px-8 py-4">
+        Get in Touch
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

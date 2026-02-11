@@ -1,26 +1,26 @@
-# Spec: New Aircraft Page
+# Spec: Jabiru Aircraft Page
 
 ## Requirements
 
-### Requirement: Page displays at /new-aircraft/ route
-The new aircraft page SHALL be accessible at the `/new-aircraft/` URL path and display information about purchasing new Jabiru aircraft.
+### Requirement: Page displays at /jabiru-aircraft/ route
+The Jabiru aircraft page SHALL be accessible at the `/jabiru-aircraft/` URL path and display information about purchasing new Jabiru aircraft.
 
 #### Scenario: Page loads successfully
-- **WHEN** a user navigates to `/new-aircraft/`
+- **WHEN** a user navigates to `/jabiru-aircraft/`
 - **THEN** the page loads with a hero section, aircraft models, and ordering information
 
 ### Requirement: Page displays hero section
-The page SHALL display a hero section introducing US Sport Planes as the official Jabiru importer for the Americas.
+The page SHALL display a hero section introducing US Sport Planes as the official Jabiru importer for the Americas with "Jabiru Aircraft" as the page title.
 
 #### Scenario: Hero section content is visible
-- **WHEN** the new aircraft page loads
-- **THEN** a hero section is visible with headline text about new Jabiru aircraft AND a subheading mentioning "Official Jabiru Importer for the Americas"
+- **WHEN** the Jabiru aircraft page loads
+- **THEN** a hero section is visible with "Jabiru Aircraft" as the headline AND a subheading mentioning "Official Jabiru Importer for the Americas"
 
 ### Requirement: Page displays all three Jabiru models
 The page SHALL display cards or sections for each available Jabiru model: J170-M, J430-M, and J432-M.
 
 #### Scenario: All models are displayed
-- **WHEN** the new aircraft page loads
+- **WHEN** the Jabiru aircraft page loads
 - **THEN** the J170-M, J430-M, and J432-M models are all visible on the page
 
 #### Scenario: Each model has identifying information
@@ -72,12 +72,16 @@ The page SHALL include prominent call-to-action elements encouraging users to in
 - **THEN** the user is navigated to the contact page or contact form
 
 ### Requirement: Page follows site design patterns
-The page SHALL use the existing site layout, navigation, footer, and styling conventions.
+The page SHALL use the existing site layout, navigation, footer, and styling conventions with "Jabiru Aircraft" branding.
 
 #### Scenario: Navigation and footer are present
-- **WHEN** the new aircraft page loads
+- **WHEN** the Jabiru aircraft page loads
 - **THEN** the site navigation is visible at the top AND the footer is visible at the bottom
 
+#### Scenario: Page title reflects Jabiru branding
+- **WHEN** viewing the page in a browser
+- **THEN** the browser tab shows "Jabiru Aircraft | US Sport Planes"
+
 #### Scenario: Page styling matches site theme
-- **WHEN** viewing the new aircraft page
+- **WHEN** viewing the Jabiru aircraft page
 - **THEN** colors, typography, and spacing match the rest of the site

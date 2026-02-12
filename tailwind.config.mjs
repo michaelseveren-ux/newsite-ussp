@@ -44,7 +44,7 @@ export default {
         paper: '#F5F2EB',
       },
       fontFamily: {
-        heading: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Oswald', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
     },

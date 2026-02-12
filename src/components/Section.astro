@@ -3,7 +3,7 @@ interface Props {
   id: string;
   title: string;
   subtitle?: string;
-  background?: 'white' | 'gray' | 'dark';
+  background?: 'white' | 'gray' | 'dark' | 'paper';
 }
 
 const { id, title, subtitle, background = 'white' } = Astro.props;
@@ -12,18 +12,21 @@ const bgClasses = {
   white: 'bg-white',
   gray: 'bg-gray-50',
   dark: 'bg-primary-900 text-white',
+  paper: 'bg-paper',
 };
 
 const titleClasses = {
   white: 'text-primary-900',
   gray: 'text-primary-900',
   dark: 'text-white',
+  paper: 'text-primary-900',
 };
 
 const subtitleClasses = {
   white: 'text-gray-600',
   gray: 'text-gray-600',
   dark: 'text-white/80',
+  paper: 'text-gray-600',
 };
 ---
 

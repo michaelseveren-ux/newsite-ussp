@@ -1,7 +1,15 @@
-// Mock aircraft data
-// This will be replaced by Sanity CMS queries later
+/**
+ * Aircraft data layer: uses Sanity CMS when SANITY_PROJECT_ID and SANITY_DATASET are set,
+ * otherwise falls back to static data below.
+ */
 
+import {
+  isSanityConfigured,
+  fetchAllAircraftFromSanity,
+  fetchAircraftBySlugFromSanity,
+} from '../lib/sanity';
 import type { Aircraft, FeaturedAircraft } from '../types/aircraft';
+import type { AircraftType } from '../types/aircraft';
 
 export const aircraft: Aircraft[] = [
   {
@@ -349,14 +357,27 @@ Slovenian engineering at its finest, the Virus SW features a sleek composite air
   },
 ];
 
-// Helper function to get all aircraft
-export function getAllAircraft(): Aircraft[] {
+async function getAircraftList(): Promise<Aircraft[]> {
+  if (isSanityConfigured()) {
+    try {
+      return await fetchAllAircraftFromSanity();
+    } catch (e) {
+      console.warn('Sanity fetch failed, using static aircraft data:', e);
+      return aircraft;
+    }
+  }
   return aircraft;
 }
 
-// Helper function to get featured aircraft for homepage
-export function getFeaturedAircraft(): FeaturedAircraft[] {
-  return aircraft
+/** Get all aircraft (from Sanity or static data). */
+export async function getAllAircraft(): Promise<Aircraft[]> {
+  return getAircraftList();
+}
+
+/** Get featured aircraft for homepage (from Sanity or static). */
+export async function getFeaturedAircraft(): Promise<FeaturedAircraft[]> {
+  const list = await getAircraftList();
+  return list
     .filter((a) => a.featured && a.status !== 'sold')
     .slice(0, 3)
     .map((a) => ({
@@ -370,19 +391,27 @@ export function getFeaturedAircraft(): FeaturedAircraft[] {
     }));
 }
 
-// Helper function to get aircraft by slug
-export function getAircraftBySlug(slug: string): Aircraft | undefined {
+/** Get aircraft by slug (from Sanity or static). */
+export async function getAircraftBySlug(slug: string): Promise<Aircraft | undefined> {
+  if (isSanityConfigured()) {
+    try {
+      const doc = await fetchAircraftBySlugFromSanity(slug);
+      return doc ?? undefined;
+    } catch (e) {
+      console.warn('Sanity fetch by slug failed, falling back to static:', e);
+    }
+  }
   return aircraft.find((a) => a.slug === slug);
 }
 
-// Helper function to get all unique manufacturers
-export function getManufacturers(): string[] {
-  return [...new Set(aircraft.map((a) => a.manufacturer))].sort();
+/** Get all unique manufacturers (from current data source). */
+export async function getManufacturers(): Promise<string[]> {
+  const list = await getAircraftList();
+  return [...new Set(list.map((a) => a.manufacturer))].sort();
 }
 
-// Helper function to get all unique aircraft types
-export function getAircraftTypes(): AircraftType[] {
-  return [...new Set(aircraft.map((a) => a.type))];
+/** Get all unique aircraft types (from current data source). */
+export async function getAircraftTypes(): Promise<AircraftType[]> {
+  const list = await getAircraftList();
+  return [...new Set(list.map((a) => a.type))];
 }
-
-import type { AircraftType } from '../types/aircraft';

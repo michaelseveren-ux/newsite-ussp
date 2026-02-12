@@ -6,7 +6,7 @@ import AircraftCard from '../../components/AircraftCard.astro';
 import AircraftFilters from '../../components/AircraftFilters.astro';
 import { getAllAircraft } from '../../data/aircraft';
 
-const aircraft = getAllAircraft();
+const aircraft = await getAllAircraft();
 ---
 
 <Layout

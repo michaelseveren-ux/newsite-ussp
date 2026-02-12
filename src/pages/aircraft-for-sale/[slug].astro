@@ -9,15 +9,15 @@ import AircraftSpecs from '../../components/AircraftSpecs.astro';
 import { getAllAircraft, getAircraftBySlug } from '../../data/aircraft';
 import type { AircraftType } from '../../types/aircraft';
 
-export function getStaticPaths() {
-  const aircraft = getAllAircraft();
+export async function getStaticPaths() {
+  const aircraft = await getAllAircraft();
   return aircraft.map((plane) => ({
     params: { slug: plane.slug },
   }));
 }
 
 const { slug } = Astro.params;
-const aircraft = getAircraftBySlug(slug);
+const aircraft = await getAircraftBySlug(slug);
 
 if (!aircraft) {
   return Astro.redirect('/aircraft-for-sale');

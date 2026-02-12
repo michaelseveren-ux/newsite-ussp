@@ -11,7 +11,7 @@ import IconLocation from '../components/icons/IconLocation.astro';
 import { getFeaturedAircraft } from '../data/aircraft';
 
 // Get featured aircraft from mock data
-const featuredAircraft = getFeaturedAircraft();
+const featuredAircraft = await getFeaturedAircraft();
 
 // Services Data
 const services = [

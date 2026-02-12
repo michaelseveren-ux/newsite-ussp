@@ -2,8 +2,8 @@
 import type { AircraftStatus, AircraftType } from '../types/aircraft';
 import { getManufacturers, getAircraftTypes } from '../data/aircraft';
 
-const manufacturers = getManufacturers();
-const aircraftTypes = getAircraftTypes();
+const manufacturers = await getManufacturers();
+const aircraftTypes = await getAircraftTypes();
 
 const statusOptions: { value: AircraftStatus | ''; label: string }[] = [
   { value: '', label: 'All Status' },

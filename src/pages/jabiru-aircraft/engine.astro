@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+const engineModels = [
+  {
+    name: 'Jabiru 2200',
+    power: '85 HP',
+    aircraft: { name: 'J170-M', slug: 'j170-m' },
+    description: 'A compact, horizontally-opposed four-cylinder engine purpose-built for light sport and two-seat training aircraft. Known for its simplicity and low maintenance requirements.',
+  },
+  {
+    name: 'Jabiru 3300',
+    power: '120 HP',
+    aircraft: { name: 'J430-M', slug: 'j430-m' },
+    description: 'A six-cylinder variant delivering more power for four-seat touring. Shares the same design philosophy as the 2200 — straightforward, reliable, and owner-maintainable.',
+  },
+  {
+    name: 'Jabiru 3300A',
+    power: '130 HP',
+    aircraft: { name: 'J432-M', slug: 'j432-m' },
+    description: 'An enhanced version of the 3300 paired with a constant-speed propeller, providing the performance headroom needed for a fully-loaded four-seat tourer.',
+  },
+];
+
+const reasons = [
+  {
+    title: 'Purpose-Built for Aviation',
+    body: 'Unlike adapted automotive engines, the Jabiru engine was designed from the ground up for aircraft use — optimized for the demands of sustained cruise, consistent power output, and the temperature cycles of flight.',
+  },
+  {
+    title: 'Simple by Design',
+    body: 'Fewer parts means fewer things to go wrong. Jabiru\'s air-cooled, direct-drive architecture eliminates the complexity of water cooling systems, reduction gearboxes, and the maintenance overhead that comes with them.',
+  },
+  {
+    title: 'Decades of Track Record',
+    body: 'Jabiru engines have accumulated millions of flight hours across training fleets, private owners, and aerial work operations worldwide. That history gives owners and operators a well-understood reliability baseline.',
+  },
+  {
+    title: 'Owner-Maintainable',
+    body: 'Sport pilot rules and Jabiru\'s straightforward design mean that qualified pilots can perform many routine maintenance tasks themselves. Lower maintenance costs and faster turnaround between inspections.',
+  },
+];
+---
+
+<Layout
+  title="Jabiru Engine | US Sport Planes"
+  description="Learn about the Jabiru engine family powering the M-Series aircraft. Reliable, simple, and purpose-built for aviation."
+>
+  <Navigation transparent={false} />
+
+  <!-- Breadcrumb -->
+  <div class="bg-primary-900 pt-24 pb-4">
+    <div class="container-custom">
+      <nav class="flex items-center gap-2 text-sm text-white/60">
+        <a href="/jabiru-aircraft" class="hover:text-white transition-colors">Jabiru Aircraft</a>
+        <span>/</span>
+        <span class="text-white">The Engine</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-primary-900 pb-16">
+    <div class="container-custom">
+      <div class="max-w-3xl">
+        <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">
+          Australian Engineering
+        </p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          The Jabiru Engine
+        </h1>
+        <p class="text-xl text-white/80 leading-relaxed">
+          Every Jabiru aircraft is powered by an engine built by the same people who built the airframe.
+          That single-source engineering philosophy is one of the reasons Jabiru aircraft have earned
+          a reputation for reliability that holds up across decades of real-world flying.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Jabiru Engines -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          Why Jabiru Engines Are Trusted
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          The engine is at the heart of any aircraft purchase decision. Here's what makes Jabiru's approach different.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {reasons.map((reason) => (
+          <div class="bg-white rounded-xl p-6 border border-gray-200">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-accent-500/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-primary-900 mb-2">{reason.title}</h3>
+                <p class="text-gray-600 leading-relaxed">{reason.body}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Engine Variants -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          M-Series Engine Lineup
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Each M-Series model is matched to the right engine for its mission profile.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {engineModels.map((engine) => (
+          <div class="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden">
+            <div class="bg-primary-900 px-6 py-4">
+              <div class="text-white font-bold text-xl">{engine.name}</div>
+              <div class="text-accent-500 font-semibold">{engine.power}</div>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600 text-sm leading-relaxed mb-5">{engine.description}</p>
+              <div class="pt-4 border-t border-gray-200">
+                <div class="text-xs text-gray-500 uppercase tracking-wider mb-2">Powers the</div>
+                <a
+                  href={`/jabiru-aircraft/${engine.aircraft.slug}`}
+                  class="inline-flex items-center gap-1 font-semibold text-primary-900 hover:text-accent-500 transition-colors"
+                >
+                  Jabiru {engine.aircraft.name}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-sm text-gray-500 mt-8">
+        For detailed technical specifications and maintenance documentation, visit
+        <a href="https://www.jabiru.net.au" target="_blank" rel="noopener noreferrer" class="text-accent-500 hover:underline">jabiru.net.au</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-primary-900">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">
+        Ready to Talk Aircraft?
+      </h2>
+      <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        We're happy to answer your questions about Jabiru engines, aircraft performance, or the buying process.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="btn-primary text-lg px-8 py-4">
+          Get in Touch
+        </a>
+        <a href="/jabiru-aircraft" class="btn-secondary text-lg px-8 py-4">
+          View All Models
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

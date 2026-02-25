@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+const series100 = [
+  {
+    name: 'J160',
+    description: 'A streamlined two-seat light sport aircraft known for its efficient design and easy handling. A popular choice for training programs and budget-conscious sport pilots.',
+  },
+  {
+    name: 'J170-SP',
+    description: 'The sport pilot edition of the J170 line, offering side-by-side seating, a roomy cabin for its class, and the straightforward reliability of the Jabiru 2200 engine.',
+  },
+  {
+    name: 'J170-D',
+    description: 'The dual-control variant of the J170, widely used by flight schools and instructors. Full dual controls make it well-suited for primary and sport pilot training environments.',
+  },
+];
+
+const series200 = [
+  {
+    name: 'J230-SP',
+    description: 'A four-seat tourer in the sport pilot category, offering a practical balance of cabin space and cross-country performance. Popular with families and travelling pilots.',
+  },
+  {
+    name: 'J230-D',
+    description: 'The dual-control four-seat variant, giving flight schools the option to train in a larger aircraft with the Jabiru 3300 engine.',
+  },
+  {
+    name: 'J250-SP',
+    description: 'The highest-performing aircraft in the legacy lineup, featuring additional power and a higher useful load — a capable cross-country machine for the serious touring pilot.',
+  },
+];
+---
+
+<Layout
+  title="Legacy Jabiru Models | US Sport Planes"
+  description="Explore Jabiru's legacy 100 and 200 Series aircraft. Browse used inventory of J160, J170, J230, J250, and more."
+>
+  <Navigation transparent={false} />
+
+  <!-- Breadcrumb -->
+  <div class="bg-primary-900 pt-24 pb-4">
+    <div class="container-custom">
+      <nav class="flex items-center gap-2 text-sm text-white/60">
+        <a href="/jabiru-aircraft" class="hover:text-white transition-colors">Jabiru Aircraft</a>
+        <span>/</span>
+        <span class="text-white">Legacy Models</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-primary-900 pb-16">
+    <div class="container-custom">
+      <div class="max-w-3xl">
+        <p class="text-accent-500 font-semibold text-sm uppercase tracking-wider mb-4">
+          Previous Generation
+        </p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          Legacy Jabiru Models
+        </h1>
+        <p class="text-xl text-white/80 leading-relaxed">
+          Jabiru's 100 and 200 Series aircraft established the brand's reputation for reliable,
+          affordable flying. Many are still flying today — and we regularly carry pre-owned examples
+          through our aircraft inventory.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <a href="/aircraft-for-sale" class="btn-primary">
+            Browse Used Inventory
+          </a>
+          <a href="/jabiru-aircraft" class="btn-secondary">
+            View Current M-Series
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 100 Series -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="mb-10">
+        <h2 class="text-3xl font-bold text-primary-900 mb-3">100 Series</h2>
+        <p class="text-gray-600 max-w-2xl">
+          Two-seat light sport aircraft powered by the Jabiru 2200 engine. Built for training,
+          sport flying, and accessible cross-country travel.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {series100.map((model) => (
+          <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h3 class="text-xl font-bold text-primary-900 mb-1">Jabiru {model.name}</h3>
+            <div class="w-8 h-0.5 bg-accent-500 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed">{model.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-primary-900/5 border border-primary-900/10 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="font-semibold text-primary-900 mb-1">Looking for a used 100 Series?</div>
+          <div class="text-gray-600 text-sm">We carry pre-owned J160, J170-SP, and J170-D aircraft through our inventory.</div>
+        </div>
+        <a href="/aircraft-for-sale" class="btn-primary whitespace-nowrap flex-shrink-0">
+          Browse Used Inventory
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 200 Series -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="mb-10">
+        <h2 class="text-3xl font-bold text-primary-900 mb-3">200 Series</h2>
+        <p class="text-gray-600 max-w-2xl">
+          Four-seat touring aircraft powered by the Jabiru 3300 engine. More cabin space, more useful
+          load, and the range to go places.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {series200.map((model) => (
+          <div class="bg-gray-50 rounded-xl border border-gray-200 p-6">
+            <h3 class="text-xl font-bold text-primary-900 mb-1">Jabiru {model.name}</h3>
+            <div class="w-8 h-0.5 bg-accent-500 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed">{model.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-primary-900/5 border border-primary-900/10 rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="font-semibold text-primary-900 mb-1">Looking for a used 200 Series?</div>
+          <div class="text-gray-600 text-sm">We carry pre-owned J230 and J250 aircraft through our inventory.</div>
+        </div>
+        <a href="/aircraft-for-sale" class="btn-primary whitespace-nowrap flex-shrink-0">
+          Browse Used Inventory
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-primary-900">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">
+        Interested in a New Jabiru?
+      </h2>
+      <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        The current M-Series builds on everything the legacy lineup proved. Explore the J170-M, J430-M, and J432-M.
+      </p>
+      <a href="/jabiru-aircraft" class="btn-primary text-lg px-8 py-4">
+        View Current M-Series
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

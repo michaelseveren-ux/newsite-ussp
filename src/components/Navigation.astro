@@ -9,17 +9,20 @@ interface Props {
 const { transparent = true } = Astro.props;
 
 const navLinks = [
+  { href: '/aircraft-for-sale', label: 'Aircraft Inventory' },
   { href: '/about', label: 'About Us' },
   { href: '/services', label: 'How We Help' },
   { href: '/blog', label: 'Press & Videos' },
   { href: '/service-map', label: 'Service & Flight Training' },
 ];
 
-const aircraftDropdown = {
-  label: 'Aircraft Sales',
+const jabiruDropdown = {
+  label: 'Jabiru',
   items: [
-    { href: '/jabiru-aircraft', label: 'Jabiru Aircraft' },
-    { href: '/aircraft-for-sale', label: 'Aircraft Inventory' },
+    { href: '/jabiru-aircraft/j170-m', label: 'J170-M' },
+    { href: '/jabiru-aircraft/j430-m', label: 'J430-M' },
+    { href: '/jabiru-aircraft/j432-m', label: 'J432-M' },
+    { href: '/jabiru-aircraft', label: 'View All Models' },
   ],
 };
 ---
@@ -41,7 +44,7 @@ const aircraftDropdown = {
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8">
-        <!-- Aircraft Sales Dropdown -->
+        <!-- Jabiru Dropdown -->
         <div class="relative group">
           <button
             type="button"
@@ -49,21 +52,26 @@ const aircraftDropdown = {
             aria-expanded="false"
             aria-haspopup="true"
           >
-            {aircraftDropdown.label}
+            {jabiruDropdown.label}
             <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <!-- Dropdown Menu -->
           <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
-            <div class="bg-primary-900/95 backdrop-blur-sm rounded-lg shadow-lg border border-white/10 py-2 min-w-[200px]">
-              {aircraftDropdown.items.map((item) => (
-                <a
-                  href={item.href}
-                  class="block px-4 py-2 text-white/90 hover:text-gold-400 hover:bg-white/5 transition-colors"
-                >
-                  {item.label}
-                </a>
+            <div class="bg-primary-900/95 backdrop-blur-sm rounded-lg shadow-lg border border-white/10 py-2 min-w-[180px]">
+              {jabiruDropdown.items.map((item, i) => (
+                <>
+                  {i === jabiruDropdown.items.length - 1 && (
+                    <div class="border-t border-white/10 my-1" />
+                  )}
+                  <a
+                    href={item.href}
+                    class="block px-4 py-2 text-white/90 hover:text-gold-400 hover:bg-white/5 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </>
               ))}
             </div>
           </div>
@@ -102,12 +110,12 @@ const aircraftDropdown = {
     class="md:hidden hidden bg-primary-900/95 backdrop-blur-sm border-t border-white/10"
   >
     <div class="container-custom py-4 space-y-4">
-      <!-- Aircraft Sales Section -->
+      <!-- Jabiru Section -->
       <div class="space-y-2">
         <span class="block text-white/60 font-medium text-sm uppercase tracking-wider">
-          {aircraftDropdown.label}
+          {jabiruDropdown.label}
         </span>
-        {aircraftDropdown.items.map((item) => (
+        {jabiruDropdown.items.map((item) => (
           <a
             href={item.href}
             class="block text-white/90 hover:text-gold-400 font-medium py-2 pl-4 transition-colors mobile-nav-link"

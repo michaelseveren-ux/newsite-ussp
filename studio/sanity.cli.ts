@@ -5,4 +5,5 @@ const dataset = process.env.SANITY_STUDIO_DATASET ?? process.env.SANITY_DATASET 
 
 export default defineCliConfig({
   api: { projectId, dataset },
+  studioHost: 'ussportplanes',
 });

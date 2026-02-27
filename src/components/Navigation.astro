@@ -8,13 +8,15 @@ interface Props {
 
 const { transparent = true } = Astro.props;
 
-const navLinks = [
-  { href: '/aircraft-for-sale', label: 'Aircraft Inventory' },
-  { href: '/about', label: 'About Us' },
-  { href: '/services', label: 'How We Help' },
-  { href: '/blog', label: 'Press & Videos' },
-  { href: '/service-map', label: 'Service & Flight Training' },
-];
+const companyDropdown = {
+  label: 'Company',
+  items: [
+    { href: '/about', label: 'About Us' },
+    { href: '/services', label: 'How We Help' },
+    { href: '/blog', label: 'Press & Videos' },
+    { href: '/service-map', label: 'Service & Flight Training' },
+  ],
+};
 
 const jabiruDropdown = {
   label: 'Jabiru',
@@ -77,14 +79,37 @@ const jabiruDropdown = {
           </div>
         </div>
 
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="text-white/90 hover:text-gold-400 font-medium transition-colors"
+        <a href="/aircraft-for-sale" class="text-white/90 hover:text-gold-400 font-medium transition-colors">
+          Aircraft Inventory
+        </a>
+
+        <!-- Company Dropdown -->
+        <div class="relative group">
+          <button
+            type="button"
+            class="flex items-center gap-1 text-white/90 hover:text-gold-400 font-medium transition-colors focus:outline-none"
+            aria-expanded="false"
+            aria-haspopup="true"
           >
-            {link.label}
-          </a>
-        ))}
+            {companyDropdown.label}
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
+            <div class="bg-primary-900/95 backdrop-blur-sm rounded-lg shadow-lg border border-white/10 py-2 min-w-[200px]">
+              {companyDropdown.items.map((item) => (
+                <a
+                  href={item.href}
+                  class="block px-4 py-2 text-white/90 hover:text-gold-400 hover:bg-white/5 transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <a href="/contact" class="btn-primary">
           Get in Touch
         </a>
@@ -128,14 +153,25 @@ const jabiruDropdown = {
       <!-- Divider -->
       <div class="border-t border-white/10"></div>
 
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="block text-white/90 hover:text-gold-400 font-medium py-2 transition-colors mobile-nav-link"
-        >
-          {link.label}
-        </a>
-      ))}
+      <a href="/aircraft-for-sale" class="block text-white/90 hover:text-gold-400 font-medium py-2 transition-colors mobile-nav-link">
+        Aircraft Inventory
+      </a>
+
+      <!-- Company Section -->
+      <div class="border-t border-white/10"></div>
+      <div class="space-y-2">
+        <span class="block text-white/60 font-medium text-sm uppercase tracking-wider">
+          {companyDropdown.label}
+        </span>
+        {companyDropdown.items.map((item) => (
+          <a
+            href={item.href}
+            class="block text-white/90 hover:text-gold-400 font-medium py-2 pl-4 transition-colors mobile-nav-link"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
       <a href="/contact" class="btn-primary w-full text-center mt-4 mobile-nav-link">
         Get in Touch
       </a>

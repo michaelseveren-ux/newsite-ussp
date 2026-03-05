@@ -9,6 +9,7 @@ import IconPhone from '../components/icons/IconPhone.astro';
 import IconEmail from '../components/icons/IconEmail.astro';
 import IconLocation from '../components/icons/IconLocation.astro';
 import { getFeaturedAircraft } from '../data/aircraft';
+import BrandPartners from '../components/BrandPartners.astro';
 
 // Get featured aircraft from mock data
 const featuredAircraft = await getFeaturedAircraft();
@@ -76,6 +77,8 @@ const values = [
       ))}
     </div>
   </Section>
+
+  <BrandPartners />
 
   <!-- Featured Aircraft Section -->
   <Section

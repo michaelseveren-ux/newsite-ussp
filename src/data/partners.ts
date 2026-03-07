@@ -29,16 +29,16 @@ export const certifications: Certification[] = [
 
 export const brands: Brand[] = [
   {
-    name: 'Jabiru',
-    logo: '/images/logos/jabiru.png',
-    href: '/jabiru-aircraft',
-    external: false,
-  },
-  {
     name: 'Aerotrek',
     logo: '/images/logos/aerotrek.png',
     href: 'https://www.aerotrek.aero',
     external: true,
+  },
+  {
+    name: 'Jabiru',
+    logo: '/images/logos/jabiru.png',
+    href: '/jabiru-aircraft',
+    external: false,
   },
   {
     name: 'Tecnam',
